@@ -1,0 +1,25 @@
+{
+  "name": "mittwald/psr7-validation",
+  "description": "PSR-7 middleware for JSON schema validation",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Martin Helmich",
+      "email": "m.helmich@mittwald.de"
+    },
+    {
+      "name": "Baris Gürgöl",
+      "email": "b.guergoel@mittwald.de"
+    }
+  ],
+  "require": {
+    "justinrainbow/json-schema": "^1.6",
+    "psr/http-message": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mw\\Psr7Validation\\": "src"
+    }
+  }
+}
