@@ -14,12 +14,17 @@
     }
   ],
   "require": {
+    "php": ">=5.6",
     "justinrainbow/json-schema": "^1.6",
-    "psr/http-message": "^1.0"
+    "psr/http-message": "^1.0",
+    "guzzlehttp/psr7": "^1.2"
   },
   "autoload": {
     "psr-4": {
       "Mw\\Psr7Validation\\": "src"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.2"
   }
 }
