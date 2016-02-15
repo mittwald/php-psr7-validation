@@ -33,4 +33,17 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $result->getErrorsForProperty('foo'));
     }
 
+
+
+    public function testValidatorCanBeBuildFromSwaggerFile()
+    {
+        $result = new ValidationResult();
+
+        $validator = Factory::buildJsonValidatorFromSwaggerDefinition(__DIR__ . '/Schemas/swagger.json', 'FooType');
+        $validator->validateJson(['bar' => ['foo' => 'not a number']], $result);
+
+        $this->assertFalse($result->isSuccessful());
+        $this->assertCount(1, $result->getErrorsForProperty('bar.foo'));
+    }
+
 }

@@ -1,0 +1,22 @@
+{
+  "definitions": {
+    "FooType": {
+      "type": "object",
+      "required": ["bar"],
+      "properties": {
+        "bar": {
+          "$ref": "#/definitions/BarType"
+        }
+      }
+    },
+    "BarType": {
+      "type": "object",
+      "required": ["foo"],
+      "properties": {
+        "foo": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
