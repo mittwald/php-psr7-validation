@@ -46,16 +46,18 @@ class ValidationMiddleware
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         $json = $request->getParsedBody();
-        $result = new ValidationResult();
+        $validationResult = new ValidationResult();
 
-        $validationResult = $this->validator->validateJson($json, $result);
+        $this->validator->validateJson($json, $validationResult);
 
         if ($validationResult->isSuccessful()) {
             return $next($request, $response);
         } else {
+            $jsonResponse = json_encode($validationResult);
+            $response->getBody()->write($jsonResponse);
             return $response
                 ->withStatus($this->responseCode)
-                ->withBody(\GuzzleHttp\Psr7\stream_for(json_encode($validationResult)));
+                ->withHeader('content-type', 'application/json');
         }
     }
 

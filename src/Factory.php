@@ -4,6 +4,7 @@ namespace Mw\Psr7Validation;
 use Flow\JSONPath\JSONPath;
 use JsonSchema\RefResolver;
 use JsonSchema\Uri\UriRetriever;
+use Mw\Psr7Validation\Json\AbsoluteRefResolvingUriRetriever;
 use Mw\Psr7Validation\Json\RelativeRefResolver;
 use Mw\Psr7Validation\Validator\JsonSchemaValidator;
 use Mw\Psr7Validation\Validator\ValidatorInterface;
@@ -44,11 +45,8 @@ class Factory
     {
         $uri = 'file://' . realpath($swaggerFile);
 
-        $retriever = new UriRetriever();
+        $retriever = new AbsoluteRefResolvingUriRetriever();
         $schema = $retriever->retrieve($uri);
-
-        $swg = new RelativeRefResolver('file://' . $swaggerFile);
-        $swg->resolve($schema);
 
         $schema = (new JSONPath($schema))->find('$.definitions.' . $typeName)->first()->data();
 
