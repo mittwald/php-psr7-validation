@@ -5,6 +5,8 @@
 This package contains a [PSR-7][psr7] middleware for validating HTTP requests,
 especially using JSON schema validation.
 
+**Warning**: This package is still under development; its API can change at any time without notice. Use at own risk.
+
 ## License
 
 This package is [MIT-licensed](LICENSE.txt).
