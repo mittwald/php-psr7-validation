@@ -1,9 +1,17 @@
 <?php
 namespace Mw\Psr7Validation\Validator;
 
-
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * Interface definition for request validators.
+ *
+ * Request validators are passed the actual HTTP request and can use that in
+ * their validation logic.
+ *
+ * @package    Mw\Psr7Validation
+ * @subpackage Validator
+ */
 interface RequestValidatorInterface extends ValidatorInterface
 {
 
