@@ -1,6 +1,7 @@
 <?php
 namespace Mw\Psr7Validation\Middleware;
 
+use Mw\Psr7Validation\Validator\RequestValidatorInterface;
 use Mw\Psr7Validation\Validator\ValidationResult;
 use Mw\Psr7Validation\Validator\ValidatorInterface;
 use Psr\Http\Message\MessageInterface;
@@ -47,6 +48,10 @@ class ValidationMiddleware
     {
         $json = $request->getParsedBody();
         $validationResult = new ValidationResult();
+
+        if ($this->validator instanceof RequestValidatorInterface) {
+            $this->validator->validateRequest($request, $validationResult);
+        }
 
         $this->validator->validateJson($json, $validationResult);
 
