@@ -1,6 +1,8 @@
 <?php
 namespace Mw\Psr7Validation\Validator;
 
+use JsonSchema\Constraints\Factory;
+use JsonSchema\SchemaStorage;
 use JsonSchema\Validator;
 use stdClass;
 
@@ -19,20 +21,29 @@ class JsonSchemaValidator implements ValidatorInterface
     /** @var stdClass */
     private $schema;
 
+    /** @var SchemaStorage */
+    private $storage;
+
     /**
      * JsonSchemaValidator constructor.
      *
-     * @param stdClass  $schema    The JSON schema
-     * @param Validator $validator The (internal) JSON schema validator
+     * @param stdClass           $schema    The JSON schema
+     * @param Validator          $validator The (internal) JSON schema validator
+     * @param SchemaStorage|null $storage
      */
-    public function __construct(stdClass $schema, Validator $validator = null)
+    public function __construct(stdClass $schema, Validator $validator = null, SchemaStorage $storage = null)
     {
         if ($validator === null) {
-            $validator = new Validator();
+            $factory = null;
+            if ($storage !== null) {
+                $factory = new Factory($storage);
+            }
+            $validator = new Validator($factory ?: null);
         }
 
         $this->validator = $validator;
         $this->schema = $schema;
+        $this->storage = $storage;
     }
 
     /**

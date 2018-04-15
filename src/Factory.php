@@ -3,9 +3,9 @@ namespace Mw\Psr7Validation;
 
 use Flow\JSONPath\JSONPath;
 use JsonSchema\RefResolver;
+use JsonSchema\SchemaStorage;
 use JsonSchema\Uri\UriRetriever;
 use Mw\Psr7Validation\Json\AbsoluteRefResolvingUriRetriever;
-use Mw\Psr7Validation\Json\RelativeRefResolver;
 use Mw\Psr7Validation\Validator\JsonSchemaValidator;
 use Mw\Psr7Validation\Validator\ValidatorInterface;
 
@@ -28,10 +28,10 @@ class Factory
         $retriever = new UriRetriever();
         $schema = $retriever->retrieve($uri);
 
-        $refResolver = new RefResolver($retriever);
-        $refResolver->resolve($schema, $uri);
+        $storage = new SchemaStorage($retriever);
+        $storage->addSchema($uri, $schema);
 
-        return new JsonSchemaValidator($schema);
+        return new JsonSchemaValidator($schema, null, $storage);
     }
 
     /**
@@ -48,12 +48,12 @@ class Factory
         $retriever = new AbsoluteRefResolvingUriRetriever();
         $schema = $retriever->retrieve($uri);
 
-        $schema = (new JSONPath($schema))->find('$.definitions.' . $typeName)->first()->data();
+        $subSchema = (new JSONPath($schema))->find('$.definitions.' . $typeName)->first()->data();
 
-        $refResolver = new RefResolver($retriever);
-        $refResolver->resolve($schema, $uri);
+        $storage = new SchemaStorage($retriever);
+        $storage->addSchema($uri, $schema);
 
-        return new JsonSchemaValidator($schema);
+        return new JsonSchemaValidator($subSchema, null, $storage);
     }
 
 }
