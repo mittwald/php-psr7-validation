@@ -2,7 +2,6 @@
 namespace Mw\Psr7Validation;
 
 use Flow\JSONPath\JSONPath;
-use JsonSchema\RefResolver;
 use JsonSchema\SchemaStorage;
 use JsonSchema\Uri\UriRetriever;
 use Mw\Psr7Validation\Json\AbsoluteRefResolvingUriRetriever;
