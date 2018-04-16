@@ -15,9 +15,9 @@ class AbsoluteRefResolvingUriRetriever extends UriRetriever
     /**
      * {@inheritdoc}
      */
-    public function retrieve($uri, $baseUri = NULL)
+    public function retrieve($uri, $baseUri = NULL, $translate = true)
     {
-        $schema = parent::retrieve($uri, $baseUri);
+        $schema = parent::retrieve($uri, $baseUri, $translate);
 
         $swg = new RelativeRefResolver($uri);
         $swg->resolve($schema);
