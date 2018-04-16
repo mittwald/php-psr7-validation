@@ -1,5 +1,7 @@
 # PSR-7 validation middlewares
 
+[![Build Status](https://travis-ci.org/mittwald/php-psr7-validation.svg?branch=master)](https://travis-ci.org/mittwald/php-psr7-validation)
+
 ## Synposis
 
 This package contains a [PSR-7][psr7] middleware for validating HTTP requests,
